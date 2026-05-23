@@ -1,0 +1,313 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* Custom premium styles */
+.glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 12px 20px -8px rgba(99, 102, 241, 0.2);
+}
+
+.glow-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.glow-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: 0.75s;
+  opacity: 0;
+}
+
+.glow-btn:hover::after {
+  left: 125%;
+  opacity: 1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F172A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.5);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 3s infinite;
+}
+
+/* Streak toast slide-in animation */
+@keyframes slideInRight {
+  0% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+/* Light mode overrides */
+body.light-mode {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+body.light-mode .bg-\[\#0F172A\] {
+  background-color: #F1F5F9 !important;
+}
+
+body.light-mode .bg-slate-900 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02) !important;
+}
+
+body.light-mode .bg-slate-900\/60 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-slate-950\/40 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-slate-950\/60 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-slate-800 {
+  background-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #1E293B !important;
+}
+
+body.light-mode .bg-\[\#1E293B\]\/80 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border-color: #E2E8F0 !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+body.light-mode .bg-\[\#1E293B\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-\[\#1E293B\]\/40 {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .border-slate-800,
+body.light-mode .border-\[\#334155\],
+body.light-mode .border-slate-700,
+body.light-mode .border-\[\#334155\]\/60,
+body.light-mode .border-\[\#334155\]\/50 {
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .text-white,
+body.light-mode .text-slate-100,
+body.light-mode .text-slate-200 {
+  color: #0F172A !important;
+}
+
+body.light-mode .text-slate-350,
+body.light-mode .text-slate-300,
+body.light-mode .text-slate-400 {
+  color: #475569 !important;
+}
+
+body.light-mode .text-slate-500 {
+  color: #64748B !important;
+}
+
+body.light-mode .text-indigo-400 {
+  color: #4F46E5 !important;
+}
+
+body.light-mode .glass-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.04) !important;
+}
+
+body.light-mode input,
+body.light-mode select {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+body.light-mode .bg-slate-850 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-slate-850\/95 {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+body.light-mode .bg-slate-850\/50 {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Heatmap Calendar Cell Overrides in Light Mode */
+body.light-mode .bg-slate-850.border-slate-800 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .bg-emerald-950\/60 {
+  background-color: #E6F4EA !important;
+  border-color: #CEEAD6 !important;
+  color: #137333 !important;
+}
+
+body.light-mode .bg-emerald-800\/80 {
+  background-color: #CEEAD6 !important;
+  border-color: #A8DAB5 !important;
+  color: #137333 !important;
+}
+
+body.light-mode .bg-emerald-600 {
+  background-color: #81C784 !important;
+  border-color: #66BB6A !important;
+  color: #1B5E20 !important;
+}
+
+body.light-mode .bg-emerald-400 {
+  background-color: #34A853 !important;
+  border-color: #2E7D32 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 4px rgba(52, 168, 83, 0.15) !important;
+}
+
+body.light-mode .bg-slate-800\/40 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+body.light-mode .hover\:bg-slate-700:hover {
+  background-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+
+body.light-mode .hover\:text-white:hover {
+  color: #0F172A !important;
+}
+
+/* Recharts Tooltips in Light Mode */
+body.light-mode .recharts-default-tooltip {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+}
+body.light-mode .recharts-tooltip-label {
+  color: #0F172A !important;
+  font-weight: bold !important;
+}
+body.light-mode .recharts-tooltip-item {
+  color: #475569 !important;
+}
+
+/* Custom Scrollbar in Light Mode */
+body.light-mode ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+body.light-mode ::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+}
+body.light-mode ::-webkit-scrollbar-thumb:hover {
+  background: #CBD5E1;
+}
+
+/* Sidebar Profile Footer overrides in Light Mode */
+body.light-mode .bg-slate-900\/50 {
+  background-color: #F8FAFC !important;
+  border-top-color: #E2E8F0 !important;
+}
+body.light-mode .border-red-500\/30 {
+  border-color: rgba(220, 38, 38, 0.25) !important;
+}
+body.light-mode .text-red-400 {
+  color: #DC2626 !important;
+}
+body.light-mode .hover\:bg-red-500\/10:hover {
+  background-color: rgba(220, 38, 38, 0.06) !important;
+}
+
+/* Sidebar hover elements overrides in Light Mode */
+body.light-mode .hover\:bg-slate-800:hover {
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  color: #059669 !important;
+}
+body.light-mode .hover\:text-slate-200:hover {
+  color: #059669 !important;
+}
