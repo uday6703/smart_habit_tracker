@@ -8,7 +8,7 @@ Smart Habit Tracker is a full-stack, production-grade web application designed f
 
 *   **Backend**: Java 17, Spring Boot 3.2.5, Spring Security, JWT (Stateless Authentication), Hibernate/JPA, Maven
 *   **Frontend**: React 18, Vite, Tailwind CSS v3, Axios, Recharts, Lucide Icons
-*   **Database**: MySQL 8.0
+*   **Database**: PostgreSQL
 *   **Notifications**: Browser Desktop Push Alerts (using HTML5 Notification API)
 *   **AI Recommendations**: Rules-based heuristics (consistency drops, streak warning thresholds, time of day efficiency, and mood correlations)
 
@@ -58,13 +58,13 @@ The suggestions engine runs on the backend (fully free, no paid APIs) and trigge
 ## ⚙️ Running Locally
 
 ### 1. Database Setup
-1. Open MySQL Command Line or Workbench:
+1. Open PostgreSQL psql or a client such as pgAdmin:
    ```sql
    CREATE DATABASE smart_habit_tracker;
    ```
 2. Source the schema file:
    ```sql
-   mysql -u root -proot smart_habit_tracker < schema.sql
+   psql -U postgres -d smart_habit_tracker -f schema.sql
    ```
 This seeds a default user with demo data:
 *   **Username**: `demo`
@@ -108,17 +108,21 @@ The token contains the user's roles and expires in 24 hours. Tokens are stored s
 
 Use the backend folder as the Docker build context. Render will build the image from the Dockerfile in `backend/` and run the Spring Boot app on the port provided by Render.
 
-### Required Render Environment Variables
-Set these in your Render service settings:
+### Required Neon Environment Variables
+Set these in your deployment environment or local `.env` file:
 
-* `SPRING_DATASOURCE_URL` - your production MySQL JDBC URL.
-* `SPRING_DATASOURCE_USERNAME` - your database username.
-* `SPRING_DATASOURCE_PASSWORD` - your database password.
+* `SPRING_DATASOURCE_URL` - your Neon PostgreSQL JDBC URL, for example `jdbc:postgresql://your-neon-host.neon.tech/your_database?sslmode=require`.
+* `SPRING_DATASOURCE_USERNAME` - your Neon database username.
+* `SPRING_DATASOURCE_PASSWORD` - your Neon database password.
 * `APP_JWT_SECRET` - a base64-encoded secret long enough for HS512.
 * `APP_CORS_ALLOWED_ORIGINS` - your deployed frontend URL, for example `https://your-frontend.onrender.com`.
 * `GOOGLE_GEMINI_API_KEY` - optional; leave blank if you do not use Gemini features.
 * `LOGGING_LEVEL_COM_TRACKER_SMARTHABITTRACKER` - optional, defaults to `INFO`.
 * `LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY` - optional, defaults to `INFO`.
+
+### Important Cleanup
+If you previously added `LOGGING_LEVEL_APP`, remove it from the deployment environment.
+Spring Boot maps that environment variable to `logging.level.app`, and a value like `com.tracker.smarthabittracker=INFO` will stop the app from starting.
 
 ### Render Step by Step
 1. Push the repository to GitHub.
@@ -139,7 +143,7 @@ Your frontend should call the Render service URL, for example:
 ### Notes
 * The backend listens on `PORT`, which Render injects automatically.
 * If you deploy the frontend separately, update `APP_CORS_ALLOWED_ORIGINS` to that exact frontend origin.
-* Use a managed database instead of local MySQL for production.
+* Use a managed PostgreSQL database instead of a local database for production.
 
 ---
 

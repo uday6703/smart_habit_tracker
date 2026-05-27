@@ -38,8 +38,8 @@ graph TD
     end
 
     %% Database Layer
-    subgraph Data Layer (MySQL 8.0)
-        DB[(MySQL Database)]
+    subgraph Data Layer (PostgreSQL)
+      DB[(PostgreSQL Database)]
         JP[Spring Data JPA Repositories]
     end
 
@@ -116,7 +116,7 @@ backend/src/main/java/com/tracker/smarthabittracker/
 │   └── TinyHabitRecommendation.java   # Pending micro-habit recommendations
 │
 ├── repository/                        # Spring Data JPA Repository Interfaces
-│   └── HabitRepository.java           # Relational abstraction over MySQL tables
+│   └── HabitRepository.java           # Relational abstraction over PostgreSQL tables
 │
 └── service/                           # Business Logic & Analytics Engines
     ├── UserService.java               # Auth validations and sign-ups
@@ -424,26 +424,26 @@ export default api;
 ### System Requirements
 * **Java**: JDK 17
 * **Node.js**: Node 18+ (NPM 9+)
-* **Database**: MySQL 8.0+
+* **Database**: PostgreSQL 14+
 * **Build tool**: Maven 3.8+
 
 ### 1. Database Setup
-1. Create the MySQL database:
+1. Create the PostgreSQL database:
    ```sql
    CREATE DATABASE smart_habit_tracker;
    ```
 2. Import the schema and seed data:
    ```bash
-   mysql -u root -p smart_habit_tracker < schema.sql
+  psql -U postgres -d smart_habit_tracker -f schema.sql
    ```
    *Note: This creates a default demo account with credentials:*
    * **Username**: `demo`
    * **Password**: `password123`
 
 ### 2. Configure Backend Properties
-Update `backend/src/main/resources/application.properties` with your MySQL credentials and Google Gemini API key:
+Update `backend/src/main/resources/application.properties` with your PostgreSQL credentials and Google Gemini API key:
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/smart_habit_tracker?useSSL=false&serverTimezone=UTC
+spring.datasource.url=jdbc:postgresql://localhost:5432/smart_habit_tracker
 spring.datasource.username=your_username
 spring.datasource.password=your_password
 
