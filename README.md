@@ -104,6 +104,43 @@ The token contains the user's roles and expires in 24 hours. Tokens are stored s
 
 ---
 
+## 🚀 Deploying the Backend on Render with Docker
+
+Use the backend folder as the Docker build context. Render will build the image from the Dockerfile in `backend/` and run the Spring Boot app on the port provided by Render.
+
+### Required Render Environment Variables
+Set these in your Render service settings:
+
+* `SPRING_DATASOURCE_URL` - your production MySQL JDBC URL.
+* `SPRING_DATASOURCE_USERNAME` - your database username.
+* `SPRING_DATASOURCE_PASSWORD` - your database password.
+* `APP_JWT_SECRET` - a base64-encoded secret long enough for HS512.
+* `APP_CORS_ALLOWED_ORIGINS` - your deployed frontend URL, for example `https://your-frontend.onrender.com`.
+* `GOOGLE_GEMINI_API_KEY` - optional; leave blank if you do not use Gemini features.
+
+### Render Step by Step
+1. Push the repository to GitHub.
+2. In Render, create a new **Web Service**.
+3. Connect the GitHub repository.
+4. Choose **Docker** as the environment.
+5. Set the root directory to `backend`.
+6. Keep the Dockerfile path as the default `backend/Dockerfile`.
+7. Add the environment variables listed above.
+8. Deploy the service.
+9. After deployment, verify the service responds at `/api/health`.
+
+### API Base URL
+Your frontend should call the Render service URL, for example:
+
+`https://your-backend.onrender.com/api`
+
+### Notes
+* The backend listens on `PORT`, which Render injects automatically.
+* If you deploy the frontend separately, update `APP_CORS_ALLOWED_ORIGINS` to that exact frontend origin.
+* Use a managed database instead of local MySQL for production.
+
+---
+
 ## 📊 Analytics
 Uses **Recharts** to draw dark-mode optimized charts mapping:
 *   Weekly progress check-ins.
