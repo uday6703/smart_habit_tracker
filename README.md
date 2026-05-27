@@ -117,6 +117,8 @@ Set these in your Render service settings:
 * `APP_JWT_SECRET` - a base64-encoded secret long enough for HS512.
 * `APP_CORS_ALLOWED_ORIGINS` - your deployed frontend URL, for example `https://your-frontend.onrender.com`.
 * `GOOGLE_GEMINI_API_KEY` - optional; leave blank if you do not use Gemini features.
+* `LOGGING_LEVEL_COM_TRACKER_SMARTHABITTRACKER` - optional, defaults to `INFO`.
+* `LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY` - optional, defaults to `INFO`.
 
 ### Render Step by Step
 1. Push the repository to GitHub.
